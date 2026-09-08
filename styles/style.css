@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap');
 
+
 :root {
     --navy: #071c2d;
     --navy-2: #0b2337;
@@ -626,3 +627,168 @@ a {
     font-size: 10px;
     font-weight: 700;
 }
+
+/* ================================================================
+   LOGGED-IN PAGE NAVBAR
+================================================================ */
+
+.navbar {
+    width: 100%;
+    min-height: 85px;
+
+    background: var(--navy);
+
+    border-bottom: 4px solid var(--orange);
+
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+    z-index: 100;
+}
+
+
+/* ================================================================
+   LOGO
+================================================================ */
+
+.navbar .logo {
+    display: inline-block;
+
+    color: var(--white);
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 30px;
+    font-weight: 800;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+.navbar .logo span {
+    color: var(--yellow);
+}
+
+
+/* ================================================================
+   NAVIGATION
+================================================================ */
+
+.navbar .nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+.navbar .nav-links a {
+    display: inline-block;
+
+    color: var(--white);
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    text-decoration: none;
+
+    padding: 10px 0;
+
+    transition: 0.2s ease;
+}
+
+.navbar .nav-links a:hover {
+    color: var(--yellow);
+}
+
+.navbar .nav-links a.active {
+    color: var(--yellow);
+}
+
+
+/* ================================================================
+   LOGOUT BUTTON
+================================================================ */
+
+.navbar .nav-links .logout-btn {
+    padding: 11px 20px;
+
+    background: var(--orange);
+
+    color: var(--white);
+
+    border: 2px solid #000;
+
+    border-radius: 25px;
+
+    box-shadow: 3px 3px 0 #000;
+}
+
+.navbar .nav-links .logout-btn:hover {
+    color: var(--white);
+
+    transform: translateY(-2px);
+
+    box-shadow: 4px 4px 0 #000;
+}
+
+
+/* ================================================================
+   MOBILE
+================================================================ */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        min-height: auto;
+
+        padding: 20px 5%;
+
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+    .navbar .nav-links {
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 10px 20px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .navbar .logo {
+        font-size: 27px;
+    }
+
+    .navbar .nav-links {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .navbar .nav-links a {
+        font-size: 11px;
+    }
+
+}
+

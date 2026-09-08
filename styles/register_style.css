@@ -1,0 +1,290 @@
+/* ================================================================
+REGISTER PAGE
+================================================================ */
+
+/* Page */
+
+.register-page {
+min-height: 100vh;
+background: var(--light);
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 40px 20px;
+
+
+}
+
+/* Register Container */
+
+.register-container {
+width: 100%;
+max-width: 500px;
+
+
+background: var(--white);
+
+border: 3px solid #000;
+border-radius: 25px;
+
+padding: 45px;
+
+box-shadow: 8px 8px 0 var(--navy);
+
+
+}
+
+/* Logo */
+
+.register-logo {
+text-align: center;
+margin-bottom: 25px;
+}
+
+.register-logo a {
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 42px;
+font-weight: 800;
+
+
+color: var(--navy);
+letter-spacing: -1px;
+
+
+}
+
+.register-logo span {
+color: var(--orange);
+}
+
+/* Heading */
+
+.register-container h1 {
+text-align: center;
+
+
+font-size: 38px;
+line-height: 1;
+
+margin-bottom: 10px;
+
+
+}
+
+.register-subtitle {
+text-align: center;
+
+
+color: var(--gray);
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+margin-bottom: 28px;
+
+
+}
+
+/* ================================================================
+FORM
+================================================================ */
+
+.register-form {
+display: flex;
+flex-direction: column;
+gap: 7px;
+}
+
+/* Labels */
+
+.register-form label {
+font-size: 16px;
+font-weight: 700;
+
+
+margin-top: 9px;
+
+
+}
+
+/* Inputs */
+
+.register-form input {
+width: 100%;
+
+
+padding: 13px 16px;
+
+border: 2px solid #000;
+border-radius: 10px;
+
+background: var(--white);
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 13px;
+
+outline: none;
+
+transition: 0.2s ease;
+
+
+}
+
+.register-form input:focus {
+border-color: var(--orange);
+box-shadow: 3px 3px 0 var(--yellow);
+}
+
+/* ================================================================
+REGISTER BUTTON
+================================================================ */
+
+.register-button {
+width: 100%;
+
+
+margin-top: 22px;
+
+padding: 14px 20px;
+
+border: 0;
+border-radius: 30px;
+
+background: var(--orange);
+color: var(--white);
+
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 18px;
+font-weight: 700;
+
+cursor: pointer;
+
+box-shadow: 0 4px 0 #000;
+
+transition: 0.2s ease;
+
+
+}
+
+.register-button:hover {
+transform: translateY(-2px);
+}
+
+.register-button:active {
+transform: translateY(2px);
+box-shadow: 0 1px 0 #000;
+}
+
+/* ================================================================
+LOGIN LINK
+================================================================ */
+
+.register-login {
+text-align: center;
+
+
+margin-top: 25px;
+
+color: var(--gray);
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+
+}
+
+.register-login a {
+color: var(--orange);
+font-weight: 800;
+}
+
+.register-login a:hover {
+color: var(--navy);
+}
+
+/* ================================================================
+BACK TO HOME
+================================================================ */
+
+.register-home {
+display: block;
+
+
+text-align: center;
+
+margin-top: 18px;
+
+color: var(--navy);
+
+font-size: 14px;
+font-weight: 700;
+
+
+}
+
+.register-home:hover {
+color: var(--orange);
+}
+
+/* ================================================================
+STATUS MESSAGE
+================================================================ */
+
+.register-message {
+padding: 12px 15px;
+
+
+margin-bottom: 20px;
+
+border: 2px solid #000;
+border-radius: 10px;
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+line-height: 1.4;
+
+
+}
+
+.register-message.error {
+background: #ffe5df;
+color: #a51d08;
+}
+
+.register-message.success {
+background: #e6f5e6;
+color: #176b17;
+}
+
+/* ================================================================
+MOBILE
+================================================================ */
+
+@media (max-width: 500px) {
+
+
+.register-page {
+    padding: 25px 15px;
+}
+
+.register-container {
+    padding: 30px 25px;
+}
+
+.register-logo a {
+    font-size: 36px;
+}
+
+.register-container h1 {
+    font-size: 32px;
+}
+
+
+}

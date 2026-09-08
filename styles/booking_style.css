@@ -1,0 +1,457 @@
+/* ================================================================
+   BOOKING PAGE
+================================================================ */
+
+
+/* ================================================================
+   MAIN
+================================================================ */
+
+.booking-main {
+    min-height: calc(100vh - 92px);
+
+    background: var(--light);
+
+    padding: 55px 0 70px;
+}
+
+.booking-container {
+    width: min(1100px, 92%);
+
+    margin: auto;
+}
+
+
+/* ================================================================
+   PAGE HEADER
+================================================================ */
+
+.booking-header {
+    margin-bottom: 35px;
+}
+
+.booking-label {
+    color: var(--orange);
+
+    font-size: 14px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+.booking-header h1 {
+    color: var(--navy);
+
+    font-size: clamp(42px, 5vw, 62px);
+
+    line-height: 0.95;
+
+    margin-bottom: 15px;
+}
+
+.booking-header h1 span {
+    color: var(--orange);
+}
+
+.booking-description {
+    max-width: 600px;
+
+    color: var(--gray);
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* ================================================================
+   COURT LIST
+================================================================ */
+
+.court-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* ================================================================
+   COURT CARD
+================================================================ */
+
+.booking-court-card {
+    background: var(--white);
+
+    border: 3px solid #000;
+
+    border-radius: 20px;
+
+    padding: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    box-shadow: 5px 5px 0 var(--navy);
+
+    transition: 0.2s ease;
+
+    overflow: hidden;
+}
+
+.booking-court-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 8px 8px 0 var(--navy);
+}
+
+
+/* ================================================================
+   COURT IMAGE
+================================================================ */
+
+.court-image {
+    width: 150px;
+
+    height: 110px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border: 2px solid #000;
+
+    border-radius: 14px;
+
+    background: var(--light);
+}
+
+.court-image img {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+}
+
+
+/* ================================================================
+   COURT NUMBER
+================================================================ */
+
+.court-number {
+    width: 60px;
+
+    height: 60px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--yellow);
+
+    border: 2px solid #000;
+
+    border-radius: 15px;
+
+    color: var(--black);
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+
+/* ================================================================
+   COURT DETAILS
+================================================================ */
+
+.court-details {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.court-details h2 {
+    color: var(--navy);
+
+    font-size: 27px;
+
+    line-height: 1;
+
+    margin-bottom: 7px;
+}
+
+.court-details p {
+    color: var(--gray);
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+
+/* ================================================================
+   RATING
+================================================================ */
+
+.court-rating {
+    display: block;
+
+    color: var(--orange);
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+
+/* ================================================================
+   STATUS
+================================================================ */
+
+.court-status {
+    display: block;
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.court-status.available {
+    color: #16801d;
+}
+
+
+/* ================================================================
+   BOOK BUTTON
+================================================================ */
+
+.book-court-button {
+    flex-shrink: 0;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 12px 22px;
+
+    background: var(--orange);
+
+    color: var(--white);
+
+    border-radius: 30px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    box-shadow: 0 3px 0 #000;
+
+    transition: 0.2s ease;
+}
+
+.book-court-button:hover {
+    color: var(--white);
+
+    transform: translateY(-2px);
+}
+
+
+/* ================================================================
+   NO COURTS
+================================================================ */
+
+.no-courts {
+    background: var(--white);
+
+    border: 3px solid #000;
+
+    border-radius: 20px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    box-shadow: 5px 5px 0 var(--navy);
+}
+
+.no-courts h2 {
+    color: var(--navy);
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+.no-courts p {
+    color: var(--gray);
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* ================================================================
+   FOOTER
+================================================================ */
+
+.booking-footer {
+    background: var(--navy);
+
+    border-top: 3px solid var(--orange);
+
+    color: #aaa;
+
+    padding: 25px 8%;
+
+    text-align: center;
+
+    font-family: "Montserrat", Arial, sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+
+@media (max-width: 800px) {
+
+    .booking-court-card {
+        gap: 15px;
+    }
+
+    .court-image {
+        width: 120px;
+
+        height: 95px;
+    }
+
+    .court-number {
+        width: 55px;
+
+        height: 55px;
+
+        font-size: 20px;
+    }
+
+    .court-details h2 {
+        font-size: 23px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .booking-main {
+        padding: 40px 0 50px;
+    }
+
+    .booking-court-card {
+        padding: 15px;
+
+        flex-wrap: wrap;
+
+        align-items: flex-start;
+    }
+
+    .court-image {
+        width: 130px;
+
+        height: 100px;
+    }
+
+    .court-number {
+        width: 55px;
+
+        height: 55px;
+    }
+
+    .court-details {
+        padding-top: 5px;
+    }
+
+    .book-court-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .booking-header h1 {
+        font-size: 45px;
+    }
+
+    .booking-court-card {
+        display: grid;
+
+        grid-template-columns: 80px 1fr;
+
+        gap: 12px;
+    }
+
+    .court-image {
+        width: 80px;
+
+        height: 80px;
+
+        grid-row: span 1;
+    }
+
+    .court-number {
+        width: 50px;
+
+        height: 50px;
+    }
+
+    .court-details {
+        grid-column: 1 / -1;
+    }
+
+    .book-court-button {
+        grid-column: 1 / -1;
+    }
+
+}

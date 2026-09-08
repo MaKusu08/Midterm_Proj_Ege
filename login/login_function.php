@@ -109,7 +109,7 @@ try {
     |----------------------------------------------------------------------
     */
 
-    header("Location: dashboard.php");
+    header("Location: ../dashboard.php");
     exit;
 
 } catch (PDOException $e) {

@@ -1,0 +1,459 @@
+/* ================================================================
+DASHBOARD CSS
+================================================================ */
+
+/* ================================================================
+DASHBOARD NAVBAR
+================================================================ */
+
+.navbar {
+height: 92px;
+background: var(--navy);
+border-bottom: 3px solid #000;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 4%;
+position: sticky;
+top: 0;
+z-index: 50;
+}
+
+/* Logo */
+
+.navbar .logo {
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 38px;
+font-weight: 800;
+color: var(--white);
+letter-spacing: -1px;
+}
+
+.navbar .logo span {
+color: var(--orange);
+}
+
+/* Navigation */
+
+.nav-links {
+display: flex;
+align-items: center;
+gap: 28px;
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 16px;
+font-weight: 700;
+color: var(--white);
+}
+
+.nav-links a {
+transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+color: var(--yellow);
+}
+
+/* Logout */
+
+.logout-btn {
+background: var(--orange);
+color: var(--white) !important;
+padding: 11px 20px;
+border-radius: 30px;
+box-shadow: 0 3px 0 #000;
+}
+
+.logout-btn:hover {
+transform: translateY(-2px);
+}
+
+/* ================================================================
+MAIN
+================================================================ */
+
+main {
+min-height: calc(100vh - 92px);
+background: var(--light);
+padding: 55px 0;
+}
+
+.dashboard-container {
+width: min(1180px, 92%);
+margin: auto;
+}
+
+/* ================================================================
+WELCOME
+================================================================ */
+
+.welcome {
+background: var(--navy);
+color: var(--white);
+border: 3px solid #000;
+border-radius: 25px;
+padding: 40px 45px;
+
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+gap: 30px;
+margin-bottom: 30px;
+
+box-shadow: 7px 7px 0 #000;
+
+
+}
+
+/* Welcome Text */
+
+.welcome-text h1 {
+font-size: clamp(36px, 4vw, 52px);
+line-height: 0.98;
+margin-bottom: 12px;
+}
+
+.welcome-text h1 span {
+color: var(--orange);
+}
+
+.welcome-text p {
+color: #bfc4c8;
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 13px;
+font-weight: 600;
+}
+
+/* ================================================================
+PROFILE CARD
+================================================================ */
+
+.profile-card {
+display: flex;
+align-items: center;
+gap: 14px;
+
+
+background: var(--light);
+color: var(--black);
+
+border: 2px solid #000;
+border-radius: 18px;
+
+padding: 14px 20px;
+min-width: 240px;
+
+
+}
+
+/* Profile Icon */
+
+.profile-icon {
+width: 50px;
+height: 50px;
+
+
+border-radius: 50%;
+
+background: var(--orange);
+color: var(--white);
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 22px;
+font-weight: 800;
+
+
+}
+
+/* Profile Information */
+
+.profile-info h3 {
+font-size: 17px;
+margin-bottom: 3px;
+}
+
+.profile-info p {
+color: var(--gray);
+
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 11px;
+font-weight: 600;
+
+
+}
+
+/* ================================================================
+DASHBOARD GRID
+================================================================ */
+
+.dashboard-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+
+
+gap: 25px;
+margin-bottom: 30px;
+
+
+}
+
+/* ================================================================
+DASHBOARD CARD
+================================================================ */
+
+.dashboard-card {
+background: var(--white);
+
+
+border: 3px solid #000;
+border-radius: 22px;
+
+padding: 32px;
+
+min-height: 275px;
+
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+
+box-shadow: 6px 6px 0 var(--navy);
+
+transition: 0.2s ease;
+
+
+}
+
+.dashboard-card:hover {
+transform: translateY(-4px);
+box-shadow: 9px 9px 0 var(--navy);
+}
+
+/* Card Icon */
+
+.card-icon {
+width: 58px;
+height: 58px;
+
+
+background: var(--yellow);
+
+border: 2px solid #000;
+border-radius: 15px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+color: var(--black);
+
+font-size: 27px;
+font-weight: 800;
+
+margin-bottom: 20px;
+
+
+}
+
+/* Card Heading */
+
+.dashboard-card h2 {
+font-size: 30px;
+line-height: 1;
+margin-bottom: 12px;
+}
+
+/* Card Description */
+
+.dashboard-card p {
+color: #666;
+
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+line-height: 1.4;
+
+max-width: 450px;
+
+
+}
+
+/* ================================================================
+CARD BUTTONS
+================================================================ */
+
+.card-button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+
+width: fit-content;
+
+margin-top: 25px;
+
+padding: 12px 22px;
+
+background: var(--orange);
+color: var(--white);
+
+border-radius: 30px;
+
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 15px;
+font-weight: 700;
+
+box-shadow: 0 3px 0 #000;
+
+transition: 0.2s ease;
+
+
+}
+
+.card-button:hover {
+color: var(--white);
+transform: translateY(-2px);
+}
+
+/* Secondary Button */
+
+.secondary-button {
+background: var(--navy);
+}
+
+/* ================================================================
+QUICK INFO
+================================================================ */
+
+.quick-info {
+background: var(--navy);
+color: var(--white);
+
+
+border: 3px solid #000;
+border-radius: 22px;
+
+padding: 32px;
+
+box-shadow: 6px 6px 0 #000;
+
+}
+
+.quick-info h2 {
+color: var(--yellow);
+
+
+font-size: 30px;
+
+margin-bottom: 10px;
+
+
+}
+
+.quick-info p {
+color: #aaa;
+
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+line-height: 1.5;
+
+max-width: 700px;
+
+
+}
+
+/* ================================================================
+FOOTER
+================================================================ */
+
+.dashboard-footer {
+background: var(--navy);
+
+
+border-top: 3px solid var(--orange);
+
+color: #aaa;
+
+padding: 25px 8%;
+
+text-align: center;
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 10px;
+font-weight: 600;
+
+
+}
+
+/* ================================================================
+RESPONSIVE
+================================================================ */
+
+@media (max-width: 800px) {
+
+.navbar {
+    height: auto;
+    min-height: 80px;
+
+    padding: 15px 4%;
+
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.navbar .logo {
+    font-size: 32px;
+}
+
+.nav-links {
+    gap: 15px;
+    font-size: 13px;
+}
+
+.nav-links a:not(.logout-btn) {
+    display: none;
+}
+
+
+/* Main */
+
+main {
+    padding: 35px 0;
+}
+
+
+/* Welcome */
+
+.welcome {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 30px;
+}
+
+.profile-card {
+    width: 100%;
+}
+
+
+/* Cards */
+
+.dashboard-grid {
+    grid-template-columns: 1fr;
+}
+
+.dashboard-card {
+    min-height: 250px;
+}
+
+
+}

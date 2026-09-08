@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 
@@ -17,72 +17,138 @@ $message = $_GET['message'] ?? null;
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | PickServe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | PickServe</title>
+
+<link rel="stylesheet" href="../styles/style.css">
+<link rel="stylesheet" href="../styles/login_style.css">
+
 
 </head>
 
 <body>
 
-    <h1>Login Your Account</h1>
+<main class="login-page">
 
-    <form method="POST" action="login_function.php">
 
-        <label>Username</label><br>
+<div class="login-container">
+
+
+    <!-- LOGO -->
+
+    <div class="login-logo">
+
+        <a href="../index.php">
+            Pick<span>Serve</span>
+        </a>
+
+    </div>
+
+
+    <!-- HEADING -->
+
+    <h1>
+        Login Your Account
+    </h1>
+
+    <p class="login-subtitle">
+        Sign in to manage your PickServe reservations.
+    </p>
+
+
+    <!-- LOGIN FORM -->
+
+    <form
+        method="POST"
+        action="login_function.php"
+        class="login-form"
+    >
+
+        <label for="username">
+            Username
+        </label>
 
         <input
             type="text"
+            id="username"
             name="username"
+            autocomplete="username"
             required
         >
 
-        <br><br>
 
-
-        <label>Password</label><br>
+        <label for="password">
+            Password
+        </label>
 
         <input
             type="password"
+            id="password"
             name="password"
+            autocomplete="current-password"
             required
         >
 
-        <br><br>
 
-
-        <button type="submit" name="login">
+        <button
+            type="submit"
+            name="login"
+            class="login-button"
+        >
             Login
         </button>
 
     </form>
 
 
-    <p>
+    <!-- REGISTER -->
+
+    <p class="login-register">
+
         Don't have an account?
-        <a href="../register/register.php">Register</a>
+
+        <a href="../register/register.php">
+            Register
+        </a>
+
     </p>
 
 
-    <?php if ($status === 'error' && $message): ?>
+    <!-- HOME -->
 
-        <script>
-            alert(<?= json_encode($message) ?>);
-        </script>
-
-    <?php endif; ?>
+    <a href="../index.php" class="login-home">
+        ← Back to Home
+    </a>
 
 
-    <?php if ($status === 'success' && $message): ?>
+</div>
 
-        <script>
-            alert(<?= json_encode($message) ?>);
-        </script>
 
-    <?php endif; ?>
+</main>
+
+<?php if ($status === 'error' && $message): ?>
+
+
+<script>
+    alert(<?= json_encode($message) ?>);
+</script>
+
+
+<?php endif; ?>
+
+<?php if ($status === 'success' && $message): ?>
+
+
+<script>
+    alert(<?= json_encode($message) ?>);
+</script>
+
+
+<?php endif; ?>
 
 </body>
 
 </html>
-

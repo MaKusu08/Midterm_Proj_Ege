@@ -1,0 +1,249 @@
+/* ================================================================
+LOGIN PAGE
+================================================================ */
+
+/* Page */
+
+.login-page {
+min-height: 100vh;
+background: var(--light);
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 40px 20px;
+
+
+}
+
+/* Login Container */
+
+.login-container {
+width: 100%;
+max-width: 450px;
+
+
+background: var(--white);
+
+border: 3px solid #000;
+border-radius: 25px;
+
+padding: 45px;
+
+box-shadow: 8px 8px 0 var(--navy);
+
+
+}
+
+/* Logo */
+
+.login-logo {
+text-align: center;
+margin-bottom: 30px;
+}
+
+.login-logo a {
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 42px;
+font-weight: 800;
+
+
+color: var(--navy);
+
+
+}
+
+.login-logo span {
+color: var(--orange);
+}
+
+/* Heading */
+
+.login-container h1 {
+text-align: center;
+
+
+font-size: 38px;
+line-height: 1;
+
+margin-bottom: 10px;
+
+
+}
+
+.login-subtitle {
+text-align: center;
+
+
+color: var(--gray);
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+margin-bottom: 30px;
+
+
+}
+
+/* Form */
+
+.login-form {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+/* Labels */
+
+.login-form label {
+font-size: 16px;
+font-weight: 700;
+
+
+margin-top: 10px;
+
+
+}
+
+/* Inputs */
+
+.login-form input {
+width: 100%;
+
+
+padding: 14px 16px;
+
+border: 2px solid #000;
+border-radius: 10px;
+
+background: #fff;
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 13px;
+
+outline: none;
+
+transition: 0.2s ease;
+
+
+}
+
+.login-form input:focus {
+border-color: var(--orange);
+box-shadow: 3px 3px 0 var(--yellow);
+}
+
+/* Login Button */
+
+.login-button {
+width: 100%;
+
+
+margin-top: 22px;
+
+padding: 14px 20px;
+
+border: 0;
+border-radius: 30px;
+
+background: var(--orange);
+color: var(--white);
+
+font-family: "Barlow Condensed", Arial, sans-serif;
+font-size: 18px;
+font-weight: 700;
+
+cursor: pointer;
+
+box-shadow: 0 4px 0 #000;
+
+transition: 0.2s ease;
+
+
+}
+
+.login-button:hover {
+transform: translateY(-2px);
+}
+
+.login-button:active {
+transform: translateY(2px);
+box-shadow: 0 1px 0 #000;
+}
+
+/* Register */
+
+.login-register {
+text-align: center;
+
+
+margin-top: 25px;
+
+color: var(--gray);
+
+font-family: "Montserrat", Arial, sans-serif;
+font-size: 12px;
+font-weight: 600;
+
+
+}
+
+.login-register a {
+color: var(--orange);
+font-weight: 800;
+}
+
+.login-register a:hover {
+color: var(--navy);
+}
+
+/* Back to Home */
+
+.login-home {
+display: block;
+
+
+text-align: center;
+
+margin-top: 18px;
+
+color: var(--navy);
+
+font-size: 14px;
+font-weight: 700;
+
+
+}
+
+.login-home:hover {
+color: var(--orange);
+}
+
+/* ================================================================
+MOBILE
+================================================================ */
+
+@media (max-width: 500px) {
+
+
+.login-page {
+    padding: 25px 15px;
+}
+
+.login-container {
+    padding: 30px 25px;
+}
+
+.login-logo a {
+    font-size: 36px;
+}
+
+.login-container h1 {
+    font-size: 32px;
+}
+
+
+}

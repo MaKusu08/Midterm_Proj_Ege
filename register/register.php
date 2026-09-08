@@ -28,117 +28,206 @@ $phone     = $formData["phone"] ?? "";
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Register | PickServe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register | PickServe</title>
+
+<link rel="stylesheet" href="../styles/style.css">
+<link rel="stylesheet" href="../styles/register_style.css">
+
 
 </head>
 
 <body>
 
-    <h1>Create Account</h1>
+<main class="register-page">
+
+
+<div class="register-container">
+
+
+    <!-- LOGO -->
+
+    <div class="register-logo">
+
+        <a href="../index.php">
+            Pick<span>Serve</span>
+        </a>
+
+    </div>
+
+
+    <!-- HEADING -->
+
+    <h1>
+        Create Account
+    </h1>
+
+    <p class="register-subtitle">
+        Create your PickServe account and start booking courts.
+    </p>
+
+
+    <!-- ERROR MESSAGE -->
 
     <?php if ($status === "error" && $message): ?>
 
-        <p style="color: red;">
+        <div class="register-message error">
             <?= htmlspecialchars($message) ?>
-        </p>
+        </div>
 
     <?php endif; ?>
 
+
+    <!-- SUCCESS MESSAGE -->
 
     <?php if ($status === "success" && $message): ?>
 
-        <p style="color: green;">
+        <div class="register-message success">
             <?= htmlspecialchars($message) ?>
-        </p>
+        </div>
 
     <?php endif; ?>
 
 
-    <form method="POST" action="register_function.php">
+    <!-- REGISTER FORM -->
+
+    <form
+        method="POST"
+        action="register_function.php"
+        class="register-form"
+    >
+
+        <label for="username">
+            Username
+        </label>
 
         <input
             type="text"
+            id="username"
             name="username"
-            placeholder="Username"
+            placeholder="Enter username"
             value="<?= htmlspecialchars($username) ?>"
+            autocomplete="username"
             required
         >
 
-        <br><br>
 
+        <label for="full_name">
+            Full Name
+        </label>
 
         <input
             type="text"
+            id="full_name"
             name="full_name"
-            placeholder="Full Name"
+            placeholder="Enter your full name"
             value="<?= htmlspecialchars($full_name) ?>"
+            autocomplete="name"
             required
         >
 
-        <br><br>
 
+        <label for="email">
+            Email
+        </label>
 
         <input
             type="email"
+            id="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter your email"
             value="<?= htmlspecialchars($email) ?>"
+            autocomplete="email"
             required
         >
 
-        <br><br>
 
+        <label for="phone">
+            Phone Number
+        </label>
 
         <input
             type="text"
+            id="phone"
             name="phone"
-            placeholder="Phone Number"
+            placeholder="Enter phone number"
             value="<?= htmlspecialchars($phone) ?>"
+            autocomplete="tel"
         >
 
-        <br><br>
 
+        <label for="password">
+            Password
+        </label>
 
         <input
             type="password"
+            id="password"
             name="password"
-            placeholder="Password"
+            placeholder="Enter password"
+            autocomplete="new-password"
             required
         >
 
-        <br><br>
 
+        <label for="confirm_password">
+            Confirm Password
+        </label>
 
         <input
             type="password"
+            id="confirm_password"
             name="confirm_password"
-            placeholder="Confirm Password"
+            placeholder="Confirm your password"
+            autocomplete="new-password"
             required
         >
 
-        <br><br>
 
-
-        <button type="submit" name="register">
-            Register
+        <button
+            type="submit"
+            name="register"
+            class="register-button"
+        >
+            Create Account
         </button>
 
     </form>
 
 
-    <p>
+    <!-- LOGIN -->
+
+    <p class="register-login">
+
         Already have an account?
-        <a href="../login/login.php">Login</a>
+
+        <a href="../login/login.php">
+            Login
+        </a>
+
     </p>
+
+
+    <!-- HOME -->
+
+    <a href="../index.php" class="register-home">
+        ← Back to Home
+    </a>
+
+
+</div>
+
+
+</main>
 
 </body>
 
 </html>
-
