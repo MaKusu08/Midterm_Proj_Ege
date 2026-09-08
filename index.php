@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PickServe | Pickleball Court Booking</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
@@ -26,8 +26,8 @@
         </nav>
 
         <div class="nav-actions">
-            <a href="#" class="btn btn-light">Sign up</a>
-            <a href="#" class="btn btn-light">Login</a>
+            <a href="register/register.php" class="btn btn-light">Sign up</a>
+            <a href="login/login.php" class="btn btn-light">Login</a>
             <a href="#courts" class="btn btn-primary">Book Now</a>
         </div>
     </div>
