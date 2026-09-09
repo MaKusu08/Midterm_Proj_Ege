@@ -31,7 +31,6 @@ $full_name = $_SESSION["full_name"] ?? "";
 
 <head>
 
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -39,6 +38,7 @@ $full_name = $_SESSION["full_name"] ?? "";
 
 <link rel="stylesheet" href="styles/style.css">
 <link rel="stylesheet" href="styles/dashboard_style.css">
+
 </head>
 
 <body>
@@ -48,7 +48,6 @@ $full_name = $_SESSION["full_name"] ?? "";
 ================================================================ -->
 
 <header class="navbar">
-
 
 <a href="dashboard.php" class="logo">
     Pick<span>Serve</span>
@@ -60,11 +59,11 @@ $full_name = $_SESSION["full_name"] ?? "";
         Dashboard
     </a>
 
-    <a href="booking.php">
+    <a href="booking/booking.php">
         Book a Court
     </a>
 
-    <a href="reservations.php">
+    <a href="booking/reservations.php">
         My Reservations
     </a>
 
@@ -82,9 +81,7 @@ $full_name = $_SESSION["full_name"] ?? "";
 
 <main>
 
-
 <div class="dashboard-container">
-
 
     <!-- ============================================================
          WELCOME
@@ -104,7 +101,6 @@ $full_name = $_SESSION["full_name"] ?? "";
             </p>
 
         </div>
-
 
         <!-- PROFILE -->
 
@@ -130,13 +126,11 @@ $full_name = $_SESSION["full_name"] ?? "";
 
     </section>
 
-
     <!-- ============================================================
          DASHBOARD CARDS
     ============================================================= -->
 
     <section class="dashboard-grid">
-
 
         <!-- BOOK COURT -->
 
@@ -159,12 +153,11 @@ $full_name = $_SESSION["full_name"] ?? "";
 
             </div>
 
-            <a href="booking.php" class="card-button">
+            <a href="booking/booking.php" class="card-button">
                 Book Now →
             </a>
 
         </div>
-
 
         <!-- MY RESERVATIONS -->
 
@@ -187,14 +180,13 @@ $full_name = $_SESSION["full_name"] ?? "";
 
             </div>
 
-            <a href="reservations.php" class="card-button secondary-button">
+            <a href="booking/reservations.php" class="card-button secondary-button">
                 View Reservations →
             </a>
 
         </div>
 
     </section>
-
 
     <!-- ============================================================
          QUICK INFO
@@ -214,9 +206,7 @@ $full_name = $_SESSION["full_name"] ?? "";
 
     </section>
 
-
 </div>
-
 
 </main>
 
@@ -226,11 +216,9 @@ $full_name = $_SESSION["full_name"] ?? "";
 
 <footer class="dashboard-footer">
 
-
 <p>
     © <?= date("Y") ?> PickServe. All rights reserved.
 </p>
-
 
 </footer>
 

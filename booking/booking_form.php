@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "database/db.php";
+require_once "../database/db.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +11,7 @@ require_once "database/db.php";
 */
 
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login/login.php");
+    header("Location: ../login/login.php");
     exit;
 }
 
@@ -21,7 +21,7 @@ if (!isset($_SESSION["user_id"])) {
 |--------------------------------------------------------------------------
 */
 
-$user_id   = $_SESSION["user_id"];
+$user_id   = (int) $_SESSION["user_id"];
 $username  = $_SESSION["username"] ?? "";
 $full_name = $_SESSION["full_name"] ?? "";
 
@@ -92,7 +92,9 @@ if (!$court) {
 |--------------------------------------------------------------------------
 */
 
-$status = strtolower(trim($court["status"]));
+$status = strtolower(
+    trim($court["status"])
+);
 
 ?>
 
@@ -102,35 +104,36 @@ $status = strtolower(trim($court["status"]));
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>
-    Book <?= htmlspecialchars($court["court_name"]) ?> | PickServe
-</title>
+    <title>
+        Book <?= htmlspecialchars($court["court_name"]) ?> | PickServe
+    </title>
 
-<link
-    rel="stylesheet"
-    href="styles/style.css"
->
+    <link
+        rel="stylesheet"
+        href="../styles/style.css"
+    >
 
-<link
-    rel="stylesheet"
-    href="styles/dashboard_style.css"
->
+    <link
+        rel="stylesheet"
+        href="../styles/dashboard_style.css"
+    >
 
-<link
-    rel="stylesheet"
-    href="styles/bookingform_style.css"
->
+    <link
+        rel="stylesheet"
+        href="../styles/bookingform_style.css"
+    >
 
 </head>
 
 <body>
+
 
 <!-- ================================================================
      NAVBAR
@@ -138,17 +141,24 @@ $status = strtolower(trim($court["status"]));
 
 <header class="navbar">
 
-    <a href="dashboard.php" class="logo">
+    <a
+        href="../dashboard.php"
+        class="logo"
+    >
         Pick<span>Serve</span>
     </a>
 
+
     <nav class="nav-links">
 
-        <a href="dashboard.php">
+        <a href="../dashboard.php">
             Dashboard
         </a>
 
-        <a href="booking.php" class="active">
+        <a
+            href="booking.php"
+            class="active"
+        >
             Book a Court
         </a>
 
@@ -156,7 +166,10 @@ $status = strtolower(trim($court["status"]));
             My Reservations
         </a>
 
-        <a href="logout.php" class="logout-btn">
+        <a
+            href="../logout.php"
+            class="logout-btn"
+        >
             Logout
         </a>
 
@@ -173,6 +186,9 @@ $status = strtolower(trim($court["status"]));
 
     <div class="booking-form-container">
 
+
+        <!-- BACK BUTTON -->
+
         <a
             href="booking.php"
             class="back-button"
@@ -180,6 +196,10 @@ $status = strtolower(trim($court["status"]));
             ← Back to Courts
         </a>
 
+
+        <!-- ========================================================
+             BOOKING CARD
+        ========================================================= -->
 
         <div class="booking-form-card">
 
@@ -191,7 +211,7 @@ $status = strtolower(trim($court["status"]));
             <div>
 
                 <img
-                    src="<?= htmlspecialchars($court["image"]) ?>"
+                    src="../<?= htmlspecialchars($court["image"]) ?>"
                     alt="<?= htmlspecialchars($court["court_name"]) ?> pickleball court"
                     class="selected-court-image"
                 >
@@ -200,14 +220,20 @@ $status = strtolower(trim($court["status"]));
 
 
             <!-- ====================================================
-                 BOOKING FORM
+                 BOOKING CONTENT
             ===================================================== -->
 
             <div class="booking-form-content">
 
+
+                <!-- COURT NAME -->
+
                 <h1>
                     <?= htmlspecialchars($court["court_name"]) ?>
                 </h1>
+
+
+                <!-- LOCATION -->
 
                 <p class="court-location">
                     <?= htmlspecialchars($court["location"]) ?>
@@ -275,6 +301,7 @@ $status = strtolower(trim($court["status"]));
                         method="POST"
                     >
 
+
                         <!-- COURT ID -->
 
                         <input
@@ -289,7 +316,7 @@ $status = strtolower(trim($court["status"]));
                         <input
                             type="hidden"
                             name="user_id"
-                            value="<?= (int) $user_id ?>"
+                            value="<?= $user_id ?>"
                         >
 
 
@@ -409,7 +436,7 @@ $status = strtolower(trim($court["status"]));
 
 
                         <!-- =================================================
-                             SUBMIT
+                             SUBMIT BUTTON
                         ================================================== -->
 
                         <button
@@ -436,8 +463,10 @@ $status = strtolower(trim($court["status"]));
                         </strong>
 
                         <p>
+
                             This court cannot be booked while it is
                             <?= htmlspecialchars($status) ?>.
+
                         </p>
 
                         <a href="booking.php">
@@ -447,6 +476,7 @@ $status = strtolower(trim($court["status"]));
                     </div>
 
                 <?php endif; ?>
+
 
             </div>
 
@@ -472,3 +502,4 @@ $status = strtolower(trim($court["status"]));
 </body>
 
 </html>
+

@@ -726,24 +726,6 @@ try {
                 alt="PickServe logo"
             >
 
-            <div class="socials">
-
-                <a
-                    href="#"
-                    aria-label="Facebook"
-                >
-                    f
-                </a>
-
-                <a
-                    href="#"
-                    aria-label="Instagram"
-                >
-                    ◎
-                </a>
-
-            </div>
-
         </div>
 
 

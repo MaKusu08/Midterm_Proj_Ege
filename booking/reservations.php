@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "database/db.php";
+require_once "../database/db.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +11,7 @@ require_once "database/db.php";
 */
 
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login/login.php");
+    header("Location: ../login/login.php");
     exit;
 }
 
@@ -80,32 +80,36 @@ try {
 
     <link
         rel="stylesheet"
-        href="styles/style.css"
+        href="../styles/style.css"
     >
 
     <link
         rel="stylesheet"
-        href="styles/dashboard_style.css"
+        href="../styles/dashboard_style.css"
     >
 
     <link
         rel="stylesheet"
-        href="styles/reservation_style.css"
+        href="../styles/reservation_style.css"
     >
 
 </head>
 
 <body>
 
+<!-- ================================================================
+     NAVBAR
+================================================================ -->
+
 <header class="navbar">
 
-    <a href="dashboard.php" class="logo">
+    <a href="../dashboard.php" class="logo">
         Pick<span>Serve</span>
     </a>
 
     <nav class="nav-links">
 
-        <a href="dashboard.php">
+        <a href="../dashboard.php">
             Dashboard
         </a>
 
@@ -117,7 +121,7 @@ try {
             My Reservations
         </a>
 
-        <a href="logout.php" class="logout-btn">
+        <a href="../logout.php" class="logout-btn">
             Logout
         </a>
 
@@ -126,9 +130,18 @@ try {
 </header>
 
 
+<!-- ================================================================
+     MAIN CONTENT
+================================================================ -->
+
 <main class="reservations-main">
 
     <div class="reservations-container">
+
+
+        <!-- ========================================================
+             PAGE HEADER
+        ========================================================= -->
 
         <div class="reservations-header">
 
@@ -143,9 +156,9 @@ try {
         </div>
 
 
-        <!-- =========================================================
+        <!-- ========================================================
              SUCCESS MESSAGE
-        ========================================================== -->
+        ========================================================= -->
 
         <?php if (isset($_GET["success"])): ?>
 
@@ -158,9 +171,9 @@ try {
         <?php endif; ?>
 
 
-        <!-- =========================================================
+        <!-- ========================================================
              ERROR MESSAGE
-        ========================================================== -->
+        ========================================================= -->
 
         <?php if (isset($_GET["error"])): ?>
 
@@ -173,9 +186,9 @@ try {
         <?php endif; ?>
 
 
-        <!-- =========================================================
+        <!-- ========================================================
              NO RESERVATIONS
-        ========================================================== -->
+        ========================================================= -->
 
         <?php if (empty($reservations)): ?>
 
@@ -202,9 +215,9 @@ try {
         <?php else: ?>
 
 
-            <!-- =====================================================
+            <!-- ====================================================
                  RESERVATION LIST
-            ====================================================== -->
+            ===================================================== -->
 
             <?php foreach ($reservations as $reservation): ?>
 
@@ -219,9 +232,9 @@ try {
                 <div class="reservation-card">
 
 
-                    <!-- =================================================
+                    <!-- ==============================================
                          RESERVATION HEADER
-                    ================================================== -->
+                    =============================================== -->
 
                     <div class="reservation-top">
 
@@ -260,16 +273,18 @@ try {
                             class="reservation-status status-<?= htmlspecialchars($status) ?>"
                         >
 
-                            <?= htmlspecialchars($status) ?>
+                            <?= htmlspecialchars(
+                                ucfirst($status)
+                            ) ?>
 
                         </span>
 
                     </div>
 
 
-                    <!-- =================================================
+                    <!-- ==============================================
                          RESERVATION DETAILS
-                    ================================================== -->
+                    =============================================== -->
 
                     <div class="reservation-details">
 
@@ -355,6 +370,10 @@ try {
 </main>
 
 
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+
 <footer class="dashboard-footer">
 
     <p>
@@ -366,3 +385,4 @@ try {
 </body>
 
 </html>
+
