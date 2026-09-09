@@ -92,15 +92,26 @@ try {
 
 <body>
 
+
+<!-- =========================================================
+     ADMIN NAVBAR
+========================================================= -->
+
 <header class="admin-navbar">
 
     <a
         href="../dashboard.php"
         class="admin-logo"
     >
+
         Pick<span>Serve</span>
-        <small>ADMIN PANEL</small>
+
+        <small>
+            ADMIN PANEL
+        </small>
+
     </a>
+
 
     <nav class="admin-nav">
 
@@ -139,9 +150,16 @@ try {
 </header>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main class="admin-main">
 
     <div class="admin-container">
+
+
+        <!-- PAGE HEADER -->
 
         <div class="admin-page-header">
 
@@ -159,6 +177,10 @@ try {
 
         </div>
 
+
+        <!-- =====================================================
+             SUCCESS MESSAGE
+        ====================================================== -->
 
         <?php if (isset($_GET["success"])): ?>
 
@@ -179,6 +201,10 @@ try {
         <?php endif; ?>
 
 
+        <!-- =====================================================
+             ERROR MESSAGE
+        ====================================================== -->
+
         <?php if (isset($_GET["error"])): ?>
 
             <div class="admin-message error">
@@ -198,7 +224,7 @@ try {
                         break;
 
                     case "locked":
-                        echo "Only pending reservations can be edited.";
+                        echo "This reservation cannot be edited or deleted.";
                         break;
 
                     case "conflict":
@@ -234,6 +260,10 @@ try {
         <?php endif; ?>
 
 
+        <!-- =====================================================
+             RESERVATIONS TABLE
+        ====================================================== -->
+
         <div class="admin-table-wrapper">
 
             <table class="admin-table">
@@ -263,6 +293,7 @@ try {
                     </tr>
 
                 </thead>
+
 
                 <tbody>
 
@@ -294,6 +325,7 @@ try {
                         ?>
 
                         <tr>
+
 
                             <!-- ID -->
 
@@ -415,7 +447,9 @@ try {
 
                                     <?= (int) $reservation["duration"] ?>
 
-                                    hour<?= $reservation["duration"] != 1 ? "s" : "" ?>
+                                    hour<?= (
+                                        (int) $reservation["duration"] !== 1
+                                    ) ? "s" : "" ?>
 
                                 </strong>
 
@@ -465,6 +499,9 @@ try {
 
                                 <div class="admin-actions">
 
+
+                                    <!-- PENDING -->
+
                                     <?php if ($status === "pending"): ?>
 
                                         <a
@@ -473,6 +510,9 @@ try {
                                         >
                                             Edit
                                         </a>
+
+
+                                    <!-- CONFIRMED -->
 
                                     <?php elseif ($status === "confirmed"): ?>
 
@@ -484,6 +524,22 @@ try {
                                             Delete
                                         </a>
 
+
+                                    <!-- CANCELLED -->
+
+                                    <?php elseif ($status === "cancelled"): ?>
+
+                                        <a
+                                            href="reservation_delete.php?id=<?= (int) $reservation["id"] ?>"
+                                            class="admin-delete-btn"
+                                            onclick="return confirm('Are you sure you want to permanently delete this cancelled reservation?');"
+                                        >
+                                            Delete
+                                        </a>
+
+
+                                    <!-- COMPLETED -->
+
                                     <?php else: ?>
 
                                         <small>
@@ -491,6 +547,7 @@ try {
                                         </small>
 
                                     <?php endif; ?>
+
 
                                 </div>
 
@@ -515,4 +572,3 @@ try {
 </body>
 
 </html>
-

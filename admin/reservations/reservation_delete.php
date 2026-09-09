@@ -48,10 +48,17 @@ try {
     }
 
     /*
-     * Only confirmed reservations can be deleted
+     * Only confirmed or cancelled reservations
+     * can be deleted.
      */
 
-    if ($reservation["status"] !== "confirmed") {
+    if (
+        !in_array(
+            $reservation["status"],
+            ["confirmed", "cancelled"],
+            true
+        )
+    ) {
         header("Location: reservations.php?error=locked");
         exit;
     }
@@ -63,7 +70,7 @@ try {
     $stmt = $pdo->prepare("
         DELETE FROM reservations
         WHERE id = :id
-        AND status = 'confirmed'
+        AND status IN ('confirmed', 'cancelled')
     ");
 
     $stmt->execute([

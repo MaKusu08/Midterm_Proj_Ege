@@ -34,7 +34,7 @@ try {
     $stmt = $pdo->query("
         SELECT COUNT(*)
         FROM users
-        WHERE roles = 'user'
+        WHERE role = 'user'
     ");
 
     $totalUsers = (int) $stmt->fetchColumn();
@@ -145,6 +145,7 @@ try {
     $confirmedReservations = 0;
     $cancelledReservations = 0;
     $recentReservations = [];
+
 }
 
 ?>
@@ -177,19 +178,26 @@ try {
 
 <body>
 
+
 <!-- =========================================================
      ADMIN NAVBAR
 ========================================================= -->
 
 <header class="admin-navbar">
 
-    <div class="admin-logo">
+    <a
+        href="dashboard.php"
+        class="admin-logo"
+    >
 
         Pick<span>Serve</span>
 
-        <small>ADMIN</small>
+        <small>
+            ADMIN
+        </small>
 
-    </div>
+    </a>
+
 
     <nav class="admin-nav">
 
@@ -236,7 +244,10 @@ try {
 
     <div class="admin-container">
 
-        <!-- PAGE HEADER -->
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
 
         <section class="admin-header">
 
@@ -262,6 +273,7 @@ try {
                         <?= htmlspecialchars(
                             $_SESSION["full_name"]
                             ?? $_SESSION["username"]
+                            ?? "Admin"
                         ) ?>
                     </strong>.
 
@@ -279,6 +291,9 @@ try {
         ====================================================== -->
 
         <section class="admin-stats">
+
+
+            <!-- TOTAL USERS -->
 
             <div class="admin-stat-card">
 
@@ -301,6 +316,8 @@ try {
             </div>
 
 
+            <!-- TOTAL COURTS -->
+
             <div class="admin-stat-card">
 
                 <div class="stat-icon">
@@ -322,6 +339,8 @@ try {
             </div>
 
 
+            <!-- AVAILABLE COURTS -->
+
             <div class="admin-stat-card">
 
                 <div class="stat-icon">
@@ -342,6 +361,8 @@ try {
 
             </div>
 
+
+            <!-- TOTAL RESERVATIONS -->
 
             <div class="admin-stat-card">
 
@@ -402,6 +423,9 @@ try {
 
             <div class="reservation-overview">
 
+
+                <!-- PENDING -->
+
                 <div class="overview-card pending">
 
                     <span>
@@ -414,6 +438,8 @@ try {
 
                 </div>
 
+
+                <!-- CONFIRMED -->
 
                 <div class="overview-card confirmed">
 
@@ -428,6 +454,8 @@ try {
                 </div>
 
 
+                <!-- CANCELLED -->
+
                 <div class="overview-card cancelled">
 
                     <span>
@@ -440,6 +468,8 @@ try {
 
                 </div>
 
+
+                <!-- MAINTENANCE -->
 
                 <div class="overview-card maintenance">
 
@@ -518,6 +548,7 @@ try {
 
                     </thead>
 
+
                     <tbody>
 
                     <?php if (empty($recentReservations)): ?>
@@ -542,9 +573,19 @@ try {
 
                             <tr>
 
+
+                                <!-- ID -->
+
                                 <td>
-                                    #<?= (int) $reservation["id"] ?>
+
+                                    <strong>
+                                        #<?= (int) $reservation["id"] ?>
+                                    </strong>
+
                                 </td>
+
+
+                                <!-- USER -->
 
                                 <td>
 
@@ -567,12 +608,18 @@ try {
 
                                 </td>
 
+
+                                <!-- COURT -->
+
                                 <td>
 
                                     Court
                                     <?= (int) $reservation["court_number"] ?>
 
                                 </td>
+
+
+                                <!-- DATE -->
 
                                 <td>
 
@@ -582,34 +629,48 @@ try {
 
                                 </td>
 
+
+                                <!-- TIME -->
+
                                 <td>
 
-                                    <?= date(
-                                        "h:i A",
-                                        strtotime(
-                                            $reservation["booking_time"]
+                                    <?= htmlspecialchars(
+                                        date(
+                                            "h:i A",
+                                            strtotime(
+                                                $reservation["booking_time"]
+                                            )
                                         )
                                     ) ?>
 
                                 </td>
 
+
+                                <!-- DURATION -->
+
                                 <td>
 
                                     <?= (int) $reservation["duration"] ?>
+
                                     hr
 
                                 </td>
+
+
+                                <!-- STATUS -->
 
                                 <td>
 
                                     <span
                                         class="status-badge status-<?= htmlspecialchars(
-                                            $reservation["status"]
+                                            strtolower(
+                                                $reservation["status"]
+                                            )
                                         ) ?>"
                                     >
 
-                                        <?= ucfirst(
-                                            htmlspecialchars(
+                                        <?= htmlspecialchars(
+                                            ucfirst(
                                                 $reservation["status"]
                                             )
                                         ) ?>
@@ -617,6 +678,7 @@ try {
                                     </span>
 
                                 </td>
+
 
                             </tr>
 
@@ -662,6 +724,9 @@ try {
 
             <div class="quick-actions">
 
+
+                <!-- COURTS -->
+
                 <a
                     href="courts/courts.php"
                     class="quick-action"
@@ -677,6 +742,8 @@ try {
 
                 </a>
 
+
+                <!-- RESERVATIONS -->
 
                 <a
                     href="reservations/reservations.php"
@@ -694,6 +761,8 @@ try {
                 </a>
 
 
+                <!-- USERS -->
+
                 <a
                     href="users/users.php"
                     class="quick-action"
@@ -709,6 +778,8 @@ try {
 
                 </a>
 
+
+                <!-- MESSAGES -->
 
                 <a
                     href="messages/messages.php"
@@ -728,6 +799,7 @@ try {
             </div>
 
         </section>
+
 
     </div>
 
