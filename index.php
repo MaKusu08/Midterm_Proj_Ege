@@ -397,13 +397,6 @@ try {
 
             </div>
 
-            <a
-                href="#courts"
-                class="btn btn-primary"
-            >
-                Book your first court here!
-            </a>
-
         </div>
 
 
