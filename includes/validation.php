@@ -147,3 +147,81 @@ function validateLoginInput(array $post): array
     ];
 }
 
+function validateContactName(string $value): ?string
+{
+    if (trim($value) === '') {
+        return "Name is required.";
+    }
+
+    if (strlen(trim($value)) < 2) {
+        return "Name must be at least 2 characters long.";
+    }
+
+    return null;
+}
+
+function validateContactEmail(string $value): ?string
+{
+    if (trim($value) === '') {
+        return "Email is required.";
+    }
+
+    if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        return "Enter a valid email address.";
+    }
+
+    return null;
+}
+
+function validateContactRole(string $value): ?string
+{
+    $allowedRoles = [
+        'PLAYER/COURT OWNER',
+        'PLAYER',
+        'COURT OWNER'
+    ];
+
+    if (!in_array($value, $allowedRoles, true)) {
+        return "Please select a valid role.";
+    }
+
+    return null;
+}
+
+function validateContactMessage(string $value): ?string
+{
+    if (trim($value) === '') {
+        return "Message is required.";
+    }
+
+    if (strlen(trim($value)) < 5) {
+        return "Message must be at least 5 characters long.";
+    }
+
+    return null;
+}
+
+function validateContactInput(array $post): array
+{
+    $name = trim($post['name'] ?? '');
+    $email = trim($post['email'] ?? '');
+    $role = trim($post['role'] ?? '');
+    $message = trim($post['message'] ?? '');
+
+    $errors = array_filter([
+        validateContactName($name),
+        validateContactEmail($email),
+        validateContactRole($role),
+        validateContactMessage($message),
+    ]);
+
+    return [
+        'errors' => array_values($errors),
+        'data' => [
+            'name' => $name,
+            'email' => $email,
+            'role' => $role,
+            'message' => $message,
+        ],
+    ];
+}

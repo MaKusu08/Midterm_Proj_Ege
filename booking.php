@@ -43,7 +43,6 @@ try {
             rating,
             status
          FROM courts
-         WHERE status = 'available'
          ORDER BY id ASC"
     );
 
@@ -65,26 +64,30 @@ try {
 
 <head>
 
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
 
-    <title>Book a Court | PickServe</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <link
-        rel="stylesheet"
-        href="styles/style.css"
-    >
+<title>Book a Court | PickServe</title>
 
-    <link
-        rel="stylesheet"
-        href="styles/booking_style.css"
-    >
+<link
+    rel="stylesheet"
+    href="styles/style.css"
+>
 
-    <link rel="stylesheet" href="styles/dashboard_style.css">
+<link
+    rel="stylesheet"
+    href="styles/booking_style.css"
+>
+
+<link
+    rel="stylesheet"
+    href="styles/dashboard_style.css"
+>
 
 
 </head>
@@ -97,32 +100,33 @@ try {
 
 <header class="navbar">
 
-    <a href="dashboard.php" class="logo">
-        Pick<span>Serve</span>
+
+<a href="dashboard.php" class="logo">
+    Pick<span>Serve</span>
+</a>
+
+<nav class="nav-links">
+
+    <a href="dashboard.php">
+        Dashboard
     </a>
 
-    <nav class="nav-links">
+    <a href="booking.php" class="active">
+        Book a Court
+    </a>
 
-        <a href="dashboard.php">
-            Dashboard
-        </a>
+    <a href="reservations.php">
+        My Reservations
+    </a>
 
-        <a href="booking.php" class="active">
-            Book a Court
-        </a>
+    <a href="logout.php" class="logout-btn">
+        Logout
+    </a>
 
-        <a href="reservations.php">
-            My Reservations
-        </a>
+</nav>
 
-        <a href="logout.php" class="logout-btn">
-            Logout
-        </a>
-
-    </nav>
 
 </header>
-
 
 <!-- ================================================================
      MAIN
@@ -130,105 +134,137 @@ try {
 
 <main class="booking-main">
 
-    <div class="booking-container">
+
+<div class="booking-container">
+
+    <!-- ============================================================
+         PAGE HEADER
+    ============================================================= -->
+
+    <section class="booking-header">
+
+        <p class="booking-label">
+            PICK YOUR COURT
+        </p>
+
+        <h1>
+            Book a <span>Court</span>
+        </h1>
+
+        <p class="booking-description">
+            Choose from our available pickleball courts and
+            reserve your preferred schedule.
+        </p>
+
+    </section>
 
 
-        <!-- ============================================================
-             PAGE HEADER
-        ============================================================= -->
+    <!-- ============================================================
+         COURT LIST
+    ============================================================= -->
 
-        <section class="booking-header">
+    <section class="court-list">
 
-            <p class="booking-label">
-                PICK YOUR COURT
-            </p>
+        <?php if (!empty($courts)): ?>
 
-            <h1>
-                Book a <span>Court</span>
-            </h1>
+            <?php foreach ($courts as $index => $court): ?>
 
-            <p class="booking-description">
-                Choose from our available pickleball courts and
-                reserve your preferred schedule.
-            </p>
+                <?php
+                $status = strtolower(trim($court["status"]));
+                ?>
 
-        </section>
+                <article class="booking-court-card">
 
+                    <!-- COURT IMAGE -->
 
-        <!-- ============================================================
-             COURT LIST
-        ============================================================= -->
+                    <div class="court-image">
 
-        <section class="court-list">
+                        <img
+                            src="<?= htmlspecialchars($court["image"]) ?>"
+                            alt="<?= htmlspecialchars($court["court_name"]) ?> pickleball court"
+                        >
 
-            <?php if (!empty($courts)): ?>
-
-                <?php foreach ($courts as $index => $court): ?>
-
-                    <article class="booking-court-card">
-
-                        <!-- COURT IMAGE -->
-
-                        <div class="court-image">
-
-                            <img
-                                src="<?= htmlspecialchars($court["image"]) ?>"
-                                alt="<?= htmlspecialchars($court["court_name"]) ?> pickleball court"
-                            >
-
-                        </div>
+                    </div>
 
 
-                        <!-- COURT NUMBER -->
+                    <!-- COURT NUMBER -->
 
-                        <div class="court-number">
+                    <div class="court-number">
 
-                            <?= sprintf(
-                                "%02d",
-                                $index + 1
+                        <?= sprintf(
+                            "%02d",
+                            $index + 1
+                        ) ?>
+
+                    </div>
+
+
+                    <!-- COURT DETAILS -->
+
+                    <div class="court-details">
+
+                        <h2>
+                            <?= htmlspecialchars(
+                                $court["court_name"]
                             ) ?>
+                        </h2>
 
-                        </div>
+                        <p>
+                            <?= htmlspecialchars(
+                                $court["location"]
+                            ) ?>
+                        </p>
 
 
-                        <!-- COURT DETAILS -->
+                        <!-- RATING -->
 
-                        <div class="court-details">
+                        <span class="court-rating">
 
-                            <h2>
-                                <?= htmlspecialchars(
-                                    $court["court_name"]
-                                ) ?>
-                            </h2>
+                            <?php
 
-                            <p>
-                                <?= htmlspecialchars(
-                                    $court["location"]
-                                ) ?>
-                            </p>
+                            $rating = (float) $court["rating"];
 
-                            <span class="court-rating">
+                            for ($i = 1; $i <= 5; $i++) {
 
-                                <?php
-                                $rating = (float) $court["rating"];
+                                echo $i <= $rating ? "★" : "☆";
 
-                                for ($i = 1; $i <= 5; $i++) {
-                                    echo $i <= $rating ? "★" : "☆";
-                                }
-                                ?>
+                            }
 
-                                <?= number_format($rating, 1) ?>
+                            ?>
 
-                            </span>
+                            <?= number_format($rating, 1) ?>
+
+                        </span>
+
+
+                        <!-- STATUS -->
+
+                        <?php if ($status === "available"): ?>
 
                             <span class="court-status available">
                                 ● Available
                             </span>
 
-                        </div>
+                        <?php elseif ($status === "maintenance"): ?>
+
+                            <span class="court-status maintenance">
+                                ● Maintenance
+                            </span>
+
+                        <?php else: ?>
+
+                            <span class="court-status">
+                                ● <?= htmlspecialchars(ucfirst($status)) ?>
+                            </span>
+
+                        <?php endif; ?>
+
+                    </div>
 
 
-                        <!-- BOOK BUTTON -->
+                    <!-- BOOK BUTTON -->
+
+                    <?php if ($status === "available"): ?>
 
                         <a
                             href="booking_form.php?court_id=<?= (int) $court["id"] ?>"
@@ -237,34 +273,40 @@ try {
                             Book Now →
                         </a>
 
-                    </article>
+                    <?php else: ?>
 
-                <?php endforeach; ?>
+                        <span class="book-court-button disabled">
+                            Unavailable
+                        </span>
 
-            <?php else: ?>
+                    <?php endif; ?>
 
-                <div class="no-courts">
+                </article>
 
-                    <h2>
-                        No Courts Available
-                    </h2>
+            <?php endforeach; ?>
 
-                    <p>
-                        There are currently no courts available for booking.
-                        Please check again later.
-                    </p>
+        <?php else: ?>
 
-                </div>
+            <div class="no-courts">
 
-            <?php endif; ?>
+                <h2>
+                    No Courts Found
+                </h2>
 
-        </section>
+                <p>
+                    There are currently no courts in the system.
+                </p>
 
+            </div>
 
-    </div>
+        <?php endif; ?>
+
+    </section>
+
+</div>
+
 
 </main>
-
 
 <!-- ================================================================
      FOOTER
@@ -272,12 +314,13 @@ try {
 
 <footer class="booking-footer">
 
-    <p>
-        © <?= date("Y") ?> PickServe. All rights reserved.
-    </p>
+
+<p>
+    © <?= date("Y") ?> PickServe. All rights reserved.
+</p>
+
 
 </footer>
-
 
 </body>
 

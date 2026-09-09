@@ -2,14 +2,116 @@
 // PickServe - Court Reservation Landing Page
 
 require_once "database/db.php";
+require_once "includes/validation.php";
+
+
+/*
+|--------------------------------------------------------------------------
+| Contact Form Variables
+|--------------------------------------------------------------------------
+*/
+
+$contact_success = "";
+$contact_error = "";
+
+$contact_name = "";
+$contact_email = "";
+$contact_role = "PLAYER/COURT OWNER";
+$contact_message = "";
+
+
+/*
+|--------------------------------------------------------------------------
+| CONTACT FORM
+|--------------------------------------------------------------------------
+*/
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["contact_form"])) {
+
+    $validation = validateContactInput($_POST);
+
+    $contact_errors = $validation["errors"];
+    $contact_data = $validation["data"];
+
+    $contact_name = $contact_data["name"];
+    $contact_email = $contact_data["email"];
+    $contact_role = $contact_data["role"];
+    $contact_message = $contact_data["message"];
+
+
+    if (empty($contact_errors)) {
+
+        try {
+
+            $pdo = getConnection();
+
+            $stmt = $pdo->prepare("
+                INSERT INTO contact_messages
+                (
+                    name,
+                    email,
+                    role,
+                    message
+                )
+                VALUES
+                (
+                    :name,
+                    :email,
+                    :role,
+                    :message
+                )
+            ");
+
+            $stmt->execute([
+                ":name" => $contact_name,
+                ":email" => $contact_email,
+                ":role" => $contact_role,
+                ":message" => $contact_message
+            ]);
+
+            $contact_success = "Your message has been sent successfully.";
+
+            // Clear form after successful submission
+            $contact_name = "";
+            $contact_email = "";
+            $contact_role = "PLAYER/COURT OWNER";
+            $contact_message = "";
+
+        } catch (PDOException $e) {
+
+            $contact_error = "Something went wrong while sending your message. Please try again.";
+
+        }
+
+    } else {
+
+        // Show first validation error
+        $contact_error = $contact_errors[0];
+
+    }
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| GET COURTS
+|--------------------------------------------------------------------------
+*/
 
 try {
+
     $pdo = getConnection();
 
     $stmt = $pdo->prepare(
-        "SELECT id, court_name, location, image, rating, status
+        "SELECT
+            id,
+            court_name,
+            location,
+            image,
+            rating,
+            status
          FROM courts
-         WHERE status = 'available'
          ORDER BY id ASC"
     );
 
@@ -18,8 +120,12 @@ try {
     $courts = $stmt->fetchAll();
 
 } catch (PDOException $e) {
+
     $courts = [];
+
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +138,30 @@ try {
     <title>PickServe | Pickleball Court Booking</title>
 
     <link rel="stylesheet" href="styles/style.css">
+
+    <style>
+        .contact-message {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            font-family: "Montserrat", Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .contact-message.success {
+            background: #dff5df;
+            color: #176b1c;
+        }
+
+        .contact-message.error {
+            background: #ffe1dc;
+            color: #a32613;
+        }
+    </style>
 
 </head>
 
@@ -335,70 +465,97 @@ try {
 
     <section id="courts" class="courts">
 
-        <div class="courts-intro">
 
-            <div class="section-label">
-                <span></span>
-                Where to Play
-            </div>
+<div class="courts-intro">
 
-            <h2>
-                Courts across Dumaguete and the towns next door.
-            </h2>
+    <div class="section-label">
+        <span></span>
+        Where to Play
+    </div>
 
-            <p>
-                Every listing shows live availability, surface type, and whether
-                it's indoor or under the sun — so you know exactly what you're
-                booking before you show up.
-            </p>
+    <h2>
+        Courts across Dumaguete and the towns next door.
+    </h2>
 
-        </div>
+    <p>
+        Every listing shows live availability, surface type, and whether
+        it's indoor or under the sun — so you know exactly what you're
+        booking before you show up.
+    </p>
+
+</div>
 
 
-        <div class="court-grid">
+<div class="court-grid">
 
-            <?php if (!empty($courts)): ?>
+    <?php if (!empty($courts)): ?>
 
-                <?php foreach ($courts as $court): ?>
+        <?php foreach ($courts as $court): ?>
 
-                    <article class="court-card">
+            <?php
+            $status = strtolower(trim($court['status']));
+            ?>
 
-                        <img
-                            src="<?= htmlspecialchars($court['image']) ?>"
-                            alt="<?= htmlspecialchars($court['court_name']) ?> pickleball court"
-                        >
+            <article class="court-card">
 
-                        <div class="court-info">
+                <img
+                    src="<?= htmlspecialchars($court['image']) ?>"
+                    alt="<?= htmlspecialchars($court['court_name']) ?> pickleball court"
+                >
 
-                            <h3>
-                                <?= htmlspecialchars($court['court_name']) ?>
-                            </h3>
+                <div class="court-info">
 
-                            <p>
-                                <?= htmlspecialchars($court['location']) ?>
-                            </p>
+                    <h3>
+                        <?= htmlspecialchars($court['court_name']) ?>
+                    </h3>
 
-                            <span>
-                                ★★★★★
-                            </span>
+                    <p>
+                        <?= htmlspecialchars($court['location']) ?>
+                    </p>
 
+                    <span>
+                        ★★★★★
+                    </span>
+
+                    <?php if ($status === 'available'): ?>
+
+                        <div class="court-status available">
+                            ● Available
                         </div>
 
-                    </article>
+                    <?php elseif ($status === 'maintenance'): ?>
 
-                <?php endforeach; ?>
+                        <div class="court-status maintenance">
+                            ● Maintenance
+                        </div>
 
-            <?php else: ?>
+                    <?php else: ?>
 
-                <p>
-                    No courts are currently available.
-                </p>
+                        <div class="court-status">
+                            ● <?= htmlspecialchars(ucfirst($status)) ?>
+                        </div>
 
-            <?php endif; ?>
+                    <?php endif; ?>
 
-        </div>
+                </div>
 
-    </section>
+            </article>
+
+        <?php endforeach; ?>
+
+    <?php else: ?>
+
+        <p>
+            No courts are currently available.
+        </p>
+
+    <?php endif; ?>
+
+</div>
+
+
+</section>
+
 
 
     <!-- CONTACT -->
@@ -446,77 +603,117 @@ try {
 
         <form
             class="contact-form"
-            action="#"
+            action="index.php#contact"
             method="post"
         >
 
-            <label for="name">
-                Name
-            </label>
-
-            <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="John Doe"
-            >
+    <input
+        type="hidden"
+        name="contact_form"
+        value="1"
+    >
 
 
-            <label for="email">
-                Email
-            </label>
+    <?php if ($contact_success !== ""): ?>
 
-            <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="hello@example.com"
-            >
+        <div class="contact-message success">
+            <?= htmlspecialchars($contact_success) ?>
+        </div>
+
+    <?php endif; ?>
 
 
-            <label for="role">
-                I AM A
-            </label>
+    <?php if ($contact_error !== ""): ?>
 
-            <select
-                id="role"
-                name="role"
-            >
+        <div class="contact-message error">
+            <?= htmlspecialchars($contact_error) ?>
+        </div>
 
-                <option>
-                    PLAYER/COURT OWNER
-                </option>
-
-                <option>
-                    PLAYER
-                </option>
-
-                <option>
-                    COURT OWNER
-                </option>
-
-            </select>
+    <?php endif; ?>
 
 
-            <label for="message">
-                Message
-            </label>
+    <label for="name">
+        Name
+    </label>
 
-            <textarea
-                id="message"
-                name="message"
-                placeholder="Value"
-            ></textarea>
+    <input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="John Doe"
+        value="<?= htmlspecialchars($contact_name) ?>"
+        required
+    >
 
 
-            <button
-                type="submit"
-                class="btn btn-primary"
-            >
-                Send Message
-            </button>
+    <label for="email">
+        Email
+    </label>
 
-        </form>
+    <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="hello@example.com"
+        value="<?= htmlspecialchars($contact_email) ?>"
+        required
+    >
+
+
+    <label for="role">
+        I AM A
+    </label>
+
+    <select
+        id="role"
+        name="role"
+        required
+    >
+
+        <option
+            value="PLAYER/COURT OWNER"
+            <?= $contact_role === "PLAYER/COURT OWNER" ? "selected" : "" ?>
+        >
+            PLAYER/COURT OWNER
+        </option>
+
+        <option
+            value="PLAYER"
+            <?= $contact_role === "PLAYER" ? "selected" : "" ?>
+        >
+            PLAYER
+        </option>
+
+        <option
+            value="COURT OWNER"
+            <?= $contact_role === "COURT OWNER" ? "selected" : "" ?>
+        >
+            COURT OWNER
+        </option>
+
+    </select>
+
+
+    <label for="message">
+        Message
+    </label>
+
+    <textarea
+        id="message"
+        name="message"
+        placeholder="Write your message..."
+        required
+    ><?= htmlspecialchars($contact_message) ?></textarea>
+
+
+    <button
+        type="submit"
+        class="btn btn-primary"
+    >
+        Send Message
+    </button>
+
+</form>
 
     </section>
 
