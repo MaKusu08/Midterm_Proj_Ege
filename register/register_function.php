@@ -46,6 +46,18 @@ if (!empty($result["errors"])) {
 
 /*
 |--------------------------------------------------------------------------
+| Get Validated Data
+|--------------------------------------------------------------------------
+*/
+
+$username  = $result["data"]["username"];
+$fullName  = $result["data"]["full_name"];
+$email     = $result["data"]["email"];
+$phone     = $result["data"]["phone"];
+$password  = $result["data"]["password"];
+
+/*
+|--------------------------------------------------------------------------
 | Database Processing
 |--------------------------------------------------------------------------
 */
@@ -69,17 +81,17 @@ try {
     );
 
     $stmt->execute([
-        ":username" => $result["data"]["username"],
-        ":email" => $result["data"]["email"]
+        ":username" => $username,
+        ":email"    => $email
     ]);
 
     if ($stmt->fetch()) {
 
         $_SESSION["register_data"] = [
-            "username"  => $result["data"]["username"],
-            "full_name" => $result["data"]["full_name"],
-            "email"     => $result["data"]["email"],
-            "phone"     => $result["data"]["phone"]
+            "username"  => $username,
+            "full_name" => $fullName,
+            "email"     => $email,
+            "phone"     => $phone
         ];
 
         header(
@@ -97,9 +109,21 @@ try {
     */
 
     $hashedPassword = password_hash(
-        $result["data"]["password"],
+        $password,
         PASSWORD_DEFAULT
     );
+
+    /*
+    |----------------------------------------------------------------------
+    | Default Role
+    |----------------------------------------------------------------------
+    |
+    | All users who register normally are regular users.
+    | Admin accounts are created separately.
+    |
+    */
+
+    $role = "user";
 
     /*
     |----------------------------------------------------------------------
@@ -114,7 +138,10 @@ try {
             password,
             full_name,
             email,
-            phone
+            phone,
+            role,
+            created_at,
+            updated_at
         )
         VALUES
         (
@@ -122,16 +149,20 @@ try {
             :password,
             :full_name,
             :email,
-            :phone
+            :phone,
+            :role,
+            NOW(),
+            NOW()
         )"
     );
 
     $stmt->execute([
-        ":username"  => $result["data"]["username"],
+        ":username"  => $username,
         ":password"  => $hashedPassword,
-        ":full_name" => $result["data"]["full_name"],
-        ":email"     => $result["data"]["email"],
-        ":phone"     => $result["data"]["phone"]
+        ":full_name" => $fullName,
+        ":email"     => $email,
+        ":phone"     => $phone,
+        ":role"     => $role
     ]);
 
     /*
@@ -155,13 +186,14 @@ try {
 
     exit;
 
+
 } catch (PDOException $e) {
 
-    header(
-        "Location: register.php?status=error&message=" .
-        urlencode("Registration failed. Please try again.")
+    die(
+        "Database Error: " .
+        htmlspecialchars($e->getMessage())
     );
-
-    exit;
 }
+
+
 

@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap');
 
+/* ================================================================
+   VARIABLES
+================================================================ */
 
 :root {
     --navy: #071c2d;
@@ -11,6 +14,11 @@
     --black: #050505;
     --gray: #707070;
 }
+
+
+/* ================================================================
+   RESET
+================================================================ */
 
 * {
     box-sizing: border-box;
@@ -39,10 +47,22 @@ a {
     text-decoration: none;
 }
 
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
 .container {
     width: min(1180px, 92%);
-    margin: auto;
+    margin: 0 auto;
 }
+
+
+/* ================================================================
+   PUBLIC HEADER
+================================================================ */
 
 .site-header {
     height: 92px;
@@ -79,6 +99,10 @@ a {
     font-size: 15px;
 }
 
+.main-nav a {
+    transition: 0.2s ease;
+}
+
 .main-nav a:hover {
     color: var(--orange);
 }
@@ -88,6 +112,11 @@ a {
     gap: 10px;
     align-items: center;
 }
+
+
+/* ================================================================
+   BUTTONS
+================================================================ */
 
 .btn {
     display: inline-flex;
@@ -99,7 +128,7 @@ a {
     font-family: inherit;
     font-weight: 700;
     cursor: pointer;
-    transition: .2s ease;
+    transition: 0.2s ease;
 }
 
 .btn:hover {
@@ -127,6 +156,11 @@ a {
 .btn-large {
     padding: 15px 25px;
 }
+
+
+/* ================================================================
+   HERO
+================================================================ */
 
 .hero {
     min-height: 620px;
@@ -164,7 +198,7 @@ a {
 
 .hero h1 {
     font-size: clamp(48px, 5vw, 76px);
-    line-height: .98;
+    line-height: 0.98;
     letter-spacing: 1px;
     max-width: 760px;
     margin-bottom: 18px;
@@ -200,6 +234,11 @@ a {
     object-fit: cover;
 }
 
+
+/* ================================================================
+   STATS
+================================================================ */
+
 .stats {
     border-top: 1px solid #75808a;
     display: flex;
@@ -229,6 +268,11 @@ a {
     font-weight: 600;
 }
 
+
+/* ================================================================
+   ABOUT
+================================================================ */
+
 .section-light {
     background: var(--light);
 }
@@ -251,7 +295,7 @@ a {
     position: absolute;
     width: 75%;
     height: 83%;
-    background: url("assets/court-hero.png") center / cover;
+    background: url("../assets/court-hero.png") center / cover;
     border: 3px solid var(--navy);
     box-shadow: 7px 7px 0 #000;
 }
@@ -260,15 +304,14 @@ a {
     left: 0;
     top: 0;
     transform: translate(-5px, 0);
-    opacity: .75;
-    background-image: url("assets/paddle1.png");
-    
+    opacity: 0.75;
+    background-image: url("../assets/paddle1.png");
 }
 
 .photo-middle {
     left: 9%;
     top: 7%;
-    background-image: url("assets/paddle1.png");
+    background-image: url("../assets/paddle1.png");
 }
 
 .photo-front {
@@ -298,7 +341,7 @@ a {
 .how h2,
 .contact h2 {
     font-size: clamp(36px, 4vw, 54px);
-    line-height: .98;
+    line-height: 0.98;
     margin-bottom: 18px;
 }
 
@@ -324,11 +367,17 @@ a {
     font-size: 34px;
 }
 
+
+/* ================================================================
+   HOW IT WORKS
+================================================================ */
+
 .how {
     min-height: 570px;
     padding: 70px 7%;
     color: #fff;
     position: relative;
+    background: var(--navy);
 }
 
 .yellow {
@@ -425,6 +474,11 @@ a {
     bottom: 0;
 }
 
+
+/* ================================================================
+   COURTS
+================================================================ */
+
 .courts {
     background: var(--light);
 }
@@ -493,12 +547,39 @@ a {
     color: #ddd;
 }
 
+
+/* ================================================================
+   COURT STATUS
+================================================================ */
+
+.court-status {
+    display: block;
+    margin-top: 8px;
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.court-status.available {
+    color: #198754;
+}
+
+.court-status.maintenance {
+    color: #dc3545;
+}
+
+
+/* ================================================================
+   CONTACT
+================================================================ */
+
 .contact {
     display: grid;
     grid-template-columns: 45% 55%;
     gap: 50px;
     padding: 80px 8%;
     color: #fff;
+    background: var(--navy);
 }
 
 .contact-copy h2 {
@@ -571,6 +652,38 @@ a {
     padding: 10px 15px;
 }
 
+
+/* ================================================================
+   CONTACT MESSAGES
+================================================================ */
+
+.contact-message {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.contact-message.success {
+    background: #dff5df;
+    color: #176b1c;
+}
+
+.contact-message.error {
+    background: #ffe1dc;
+    color: #a32613;
+}
+
+
+/* ================================================================
+   FOOTER
+================================================================ */
+
 .site-footer {
     background: var(--light);
     border-top: 3px solid var(--orange);
@@ -628,47 +741,32 @@ a {
     font-weight: 700;
 }
 
+
 /* ================================================================
-   LOGGED-IN PAGE NAVBAR
+   LOGGED-IN NAVBAR
 ================================================================ */
 
 .navbar {
     width: 100%;
     min-height: 85px;
-
     background: var(--navy);
-
     border-bottom: 4px solid var(--orange);
-
     padding: 0 5%;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     position: relative;
     z-index: 100;
 }
 
-
-/* ================================================================
-   LOGO
-================================================================ */
-
 .navbar .logo {
     display: inline-block;
-
     color: var(--white);
-
     font-family: "Montserrat", Arial, sans-serif;
-
     font-size: 30px;
     font-weight: 800;
-
     line-height: 1;
-
     text-decoration: none;
-
     white-space: nowrap;
 }
 
@@ -676,36 +774,21 @@ a {
     color: var(--yellow);
 }
 
-
-/* ================================================================
-   NAVIGATION
-================================================================ */
-
 .navbar .nav-links {
     display: flex;
-
     align-items: center;
-
     gap: 30px;
 }
 
 .navbar .nav-links a {
     display: inline-block;
-
     color: var(--white);
-
     font-family: "Montserrat", Arial, sans-serif;
-
     font-size: 12px;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
     text-decoration: none;
-
     padding: 10px 0;
-
     transition: 0.2s ease;
 }
 
@@ -717,57 +800,143 @@ a {
     color: var(--yellow);
 }
 
-
-/* ================================================================
-   LOGOUT BUTTON
-================================================================ */
-
 .navbar .nav-links .logout-btn {
     padding: 11px 20px;
-
     background: var(--orange);
-
     color: var(--white);
-
     border: 2px solid #000;
-
     border-radius: 25px;
-
     box-shadow: 3px 3px 0 #000;
 }
 
 .navbar .nav-links .logout-btn:hover {
     color: var(--white);
-
     transform: translateY(-2px);
-
     box-shadow: 4px 4px 0 #000;
 }
 
 
 /* ================================================================
-   MOBILE
+   RESPONSIVE
 ================================================================ */
+
+@media (max-width: 1000px) {
+
+    .main-nav {
+        gap: 15px;
+    }
+
+    .nav-wrap {
+        gap: 15px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+        min-height: 400px;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+    }
+
+    .about-copy {
+        max-width: 100%;
+    }
+
+    .court-grid {
+        grid-template-columns: repeat(3, minmax(170px, 1fr));
+    }
+
+    .contact {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 
 @media (max-width: 800px) {
 
+    .site-header {
+        height: auto;
+    }
+
+    .nav-wrap {
+        padding: 18px 0;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .main-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-copy {
+        padding: 50px 7%;
+    }
+
+    .hero-buttons {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .stats {
+        gap: 35px;
+    }
+
+    .how-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .steps {
+        min-height: auto;
+        display: grid;
+        gap: 20px;
+    }
+
+    .steps::before,
+    .steps::after {
+        display: none;
+    }
+
+    .step-card {
+        position: relative;
+        width: 100%;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        transform: none;
+    }
+
+    .court-grid {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .navbar {
         min-height: auto;
-
         padding: 20px 5%;
-
         flex-direction: column;
-
         gap: 20px;
     }
 
     .navbar .nav-links {
         width: 100%;
-
         justify-content: center;
-
         flex-wrap: wrap;
-
         gap: 10px 20px;
     }
 
@@ -776,13 +945,45 @@ a {
 
 @media (max-width: 500px) {
 
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero-copy > p {
+        font-size: 13px;
+    }
+
+    .stats {
+        gap: 20px;
+    }
+
+    .stats b {
+        font-size: 28px;
+    }
+
+    .court-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-images {
+        height: 400px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 5px;
+    }
+
     .navbar .logo {
         font-size: 27px;
     }
 
     .navbar .nav-links {
         flex-direction: column;
-
         gap: 8px;
     }
 
@@ -790,5 +991,39 @@ a {
         font-size: 11px;
     }
 
+/* =========================================================
+   CONTACT FORM MESSAGES
+========================================================= */
+
+.contact-message {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+
+    box-sizing: border-box;
+
+    border: 2px solid #000;
+    border-radius: 10px;
+
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.4;
 }
+
+.contact-message.success {
+    background: #dff5df;
+    color: #176b1c;
+}
+
+.contact-message.error {
+    background: #ffe1dc;
+    color: #a32613;
+}
+
+
+}
+
+
 

@@ -1,5 +1,10 @@
-
 <?php
+
+/*
+|--------------------------------------------------------------------------
+| General Validation
+|--------------------------------------------------------------------------
+*/
 
 function validateEmailFormat(string $value): ?string
 {
@@ -71,6 +76,29 @@ function validatePhoneFormat(string $value): ?string
 
 /*
 |--------------------------------------------------------------------------
+| Role Validation
+|--------------------------------------------------------------------------
+*/
+
+function validateRole(string $value): ?string
+{
+    $value = strtolower(trim($value));
+
+    $allowedRoles = [
+        'user',
+        'admin'
+    ];
+
+    if (!in_array($value, $allowedRoles, true)) {
+        return "Please select a valid role.";
+    }
+
+    return null;
+}
+
+
+/*
+|--------------------------------------------------------------------------
 | Registration Validation
 |--------------------------------------------------------------------------
 */
@@ -102,10 +130,8 @@ function validateRegisterInput(array $post): array
         validatePasswordMatch($password, $confirmPassword),
     ]);
 
-    $errors = array_values($errors);
-
     return [
-        'errors' => $errors,
+        'errors' => array_values($errors),
 
         'data' => [
             'username' => $username,
@@ -135,10 +161,8 @@ function validateLoginInput(array $post): array
         validateRequired($password, 'Password'),
     ]);
 
-    $errors = array_values($errors);
-
     return [
-        'errors' => $errors,
+        'errors' => array_values($errors),
 
         'data' => [
             'username' => $username,
@@ -146,6 +170,66 @@ function validateLoginInput(array $post): array
         ],
     ];
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin User Validation
+|--------------------------------------------------------------------------
+*/
+
+function validateAdminUserInput(array $post): array
+{
+    $username = trim($post['username'] ?? '');
+    $fullName = trim($post['full_name'] ?? '');
+    $email = trim($post['email'] ?? '');
+    $phone = trim($post['phone'] ?? '');
+    $password = $post['password'] ?? '';
+    $confirmPassword = $post['confirm_password'] ?? '';
+    $role = strtolower(trim($post['role'] ?? ''));
+
+    $errors = array_filter([
+        validateRequired($username, 'Username'),
+        validateUsernameFormat($username),
+
+        validateRequired($fullName, 'Full name'),
+
+        validateRequired($email, 'Email'),
+        validateEmailFormat($email),
+
+        validatePhoneFormat($phone),
+
+        validateRequired($password, 'Password'),
+        validatePasswordStrength($password),
+
+        validateRequired($confirmPassword, 'Confirm password'),
+        validatePasswordMatch($password, $confirmPassword),
+
+        validateRequired($role, 'Role'),
+        validateRole($role),
+    ]);
+
+    return [
+        'errors' => array_values($errors),
+
+        'data' => [
+            'username' => $username,
+            'full_name' => $fullName,
+            'email' => $email,
+            'phone' => $phone,
+            'password' => $password,
+            'confirm_password' => $confirmPassword,
+            'role' => $role,
+        ],
+    ];
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Contact Form Validation
+|--------------------------------------------------------------------------
+*/
 
 function validateContactName(string $value): ?string
 {
@@ -160,6 +244,7 @@ function validateContactName(string $value): ?string
     return null;
 }
 
+
 function validateContactEmail(string $value): ?string
 {
     if (trim($value) === '') {
@@ -172,6 +257,7 @@ function validateContactEmail(string $value): ?string
 
     return null;
 }
+
 
 function validateContactRole(string $value): ?string
 {
@@ -188,6 +274,7 @@ function validateContactRole(string $value): ?string
     return null;
 }
 
+
 function validateContactMessage(string $value): ?string
 {
     if (trim($value) === '') {
@@ -200,6 +287,7 @@ function validateContactMessage(string $value): ?string
 
     return null;
 }
+
 
 function validateContactInput(array $post): array
 {
@@ -217,6 +305,7 @@ function validateContactInput(array $post): array
 
     return [
         'errors' => array_values($errors),
+
         'data' => [
             'name' => $name,
             'email' => $email,
@@ -225,3 +314,6 @@ function validateContactInput(array $post): array
         ],
     ];
 }
+
+
+

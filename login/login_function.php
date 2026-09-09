@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -10,12 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST" || !isset($_POST["login"])) {
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Validate Login Input
-|--------------------------------------------------------------------------
-*/
-
 $result = validateLoginInput($_POST);
 
 $errors = $result["errors"];
@@ -23,65 +18,48 @@ $data   = $result["data"];
 
 if (!empty($errors)) {
 
-    $message = implode(" ", $errors);
-
     header(
         "Location: login.php?status=error&message=" .
-        urlencode($message)
+        urlencode(implode(" ", $errors))
     );
 
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Get Validated Data
-|--------------------------------------------------------------------------
-*/
-
 $username = $data["username"];
 $password = $data["password"];
-
-/*
-|--------------------------------------------------------------------------
-| Database Processing
-|--------------------------------------------------------------------------
-*/
 
 try {
 
     $pdo = getConnection();
 
-    /*
-    |----------------------------------------------------------------------
-    | Find User
-    |----------------------------------------------------------------------
-    */
-
-    $stmt = $pdo->prepare(
-        "SELECT
+    $stmt = $pdo->prepare("
+        SELECT
             id,
             username,
             password,
-            full_name
-         FROM users
-         WHERE username = :username
-         LIMIT 1"
-    );
+            full_name,
+            email,
+            phone,
+            role
+        FROM users
+        WHERE username = :username
+        LIMIT 1
+    ");
 
     $stmt->execute([
         ":username" => $username
     ]);
 
-    $user = $stmt->fetch();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     /*
-    |----------------------------------------------------------------------
-    | Verify User
-    |----------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | Check User
+    |--------------------------------------------------------------------------
     */
 
-    if (!$user || !password_verify($password, $user["password"])) {
+    if (!$user) {
 
         header(
             "Location: login.php?status=error&message=" .
@@ -92,31 +70,83 @@ try {
     }
 
     /*
-    |----------------------------------------------------------------------
-    | Create Secure Session
-    |----------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | Check Password
+    |--------------------------------------------------------------------------
+    */
+
+    if (!password_verify($password, $user["password"])) {
+
+        header(
+            "Location: login.php?status=error&message=" .
+            urlencode("Invalid username or password.")
+        );
+
+        exit;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get Role
+    |--------------------------------------------------------------------------
+    */
+
+    $role = strtolower(trim((string) $user["role"]));
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Role
+    |--------------------------------------------------------------------------
+    */
+
+    if ($role !== "user" && $role !== "admin") {
+
+        header(
+            "Location: login.php?status=error&message=" .
+            urlencode("Invalid account role.")
+        );
+
+        exit;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Session
+    |--------------------------------------------------------------------------
     */
 
     session_regenerate_id(true);
 
-    $_SESSION["user_id"] = $user["id"];
-    $_SESSION["username"] = $user["username"];
+    $_SESSION["user_id"]   = $user["id"];
+    $_SESSION["username"]  = $user["username"];
     $_SESSION["full_name"] = $user["full_name"];
+    $_SESSION["email"]     = $user["email"];
+    $_SESSION["phone"]     = $user["phone"];
+    $_SESSION["role"]      = $role;
 
     /*
-    |----------------------------------------------------------------------
-    | Login Successful
-    |----------------------------------------------------------------------
+    |--------------------------------------------------------------------------
+    | Redirect
+    |--------------------------------------------------------------------------
     */
 
-    header("Location: ../dashboard.php");
-    exit;
+    if ($role === "admin") {
+
+        header("Location: ../admin/dashboard.php");
+        exit;
+    }
+
+    if ($role === "user") {
+
+        header("Location: ../dashboard.php");
+        exit;
+    }
 
 } catch (PDOException $e) {
 
     header(
         "Location: login.php?status=error&message=" .
-        urlencode("Login failed. Please try again.")
+        urlencode("Database error. Please try again.")
     );
 
     exit;

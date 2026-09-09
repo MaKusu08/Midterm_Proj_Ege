@@ -15,6 +15,17 @@ if (!isset($_SESSION["user_id"])) {
 
 /*
 |--------------------------------------------------------------------------
+| Prevent Admin From Accessing User Dashboard
+|--------------------------------------------------------------------------
+*/
+
+if (isset($_SESSION["role"]) && $_SESSION["role"] === "admin") {
+    header("Location: admin/dashboard.php");
+    exit;
+}
+
+/*
+|--------------------------------------------------------------------------
 | Get User Information
 |--------------------------------------------------------------------------
 */
@@ -24,6 +35,8 @@ $username  = $_SESSION["username"] ?? "";
 $full_name = $_SESSION["full_name"] ?? "";
 
 ?>
+
+
 
 <!DOCTYPE html>
 
